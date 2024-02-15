@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:surf_flutter_courses_template/core/app_color.dart';
-import 'package:surf_flutter_courses_template/core/app_string.dart';
+import 'package:surf_flutter_courses_template/core/app_strings.dart';
 import 'package:surf_flutter_courses_template/core/app_typography.dart';
+import 'package:surf_flutter_courses_template/data/api/ip_colors.dart';
+import 'package:surf_flutter_courses_template/data/convert_response.dart';
+import 'package:surf_flutter_courses_template/domain/model/colors_list.dart';
 
-import '../data/api/ip_photo.dart';
-import '../data/convert_response.dart';
-import '../domain/model/photos_list.dart';
+// Главный экран
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({
@@ -13,30 +14,30 @@ class MyHomePage extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 155,
         title: Text(
-          appBarString,
-          style: text30Blood.copyWith(color: textColorDarkBlue),
+          AppStrings.appTitle,
+          style:
+              AppTypography.textText30Blood.copyWith(color: AppColor.darkBlue),
           maxLines: 2,
         ),
       ),
-      body: FutureBuilder<List<IpPhoto>>(
-        future: fetchPhotos(),
-        builder: (context, snapshot) {
+      body: FutureBuilder<List<IpColors>>(
+        future: fetchColros(),
+        builder: (_, snapshot) {
           if (snapshot.hasError) {
             return Center(
               child: Text(snapshot.error?.toString() ?? 'Has Error'),
             );
           } else if (snapshot.hasData) {
-            return PhotosList(photos: snapshot.data!);
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return ColorsList(photos: snapshot.data!);
           }
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         },
       ),
     );

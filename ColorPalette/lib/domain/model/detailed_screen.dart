@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-
 import 'package:surf_flutter_courses_template/ui/model/box_model.dart';
-import 'package:surf_flutter_courses_template/ui/model/datai_box_model.dart';
+import 'package:surf_flutter_courses_template/ui/model/detailed_screen_model.dart';
 
-class DatailScreen extends StatelessWidget {
-  const DatailScreen(
-     {
-    super.key, required this.boxModel,  
+// модель детального экрана компоновки
+
+class DetailedScreen extends StatelessWidget {
+  const DetailedScreen({
+    super.key,
+    required this.boxModel,
   });
 
   final BoxModel boxModel;
@@ -14,7 +15,7 @@ class DatailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: DeteilBoxModel(
+      body: DetailedScreenModel(
           color: boxModel.color,
           title: boxModel.title,
           hexValue: boxModel.hexValue,

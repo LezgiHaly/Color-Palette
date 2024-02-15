@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 
-class IpPhoto {
+// Модель
+
+class IpColors {
   final String name;
   final String value;
 
-  const IpPhoto({
+  const IpColors({
     required this.name,
     required this.value,
   });
 
-  factory IpPhoto.fromJson(Map<String, Object?> json) {
-    return IpPhoto(
+  // Конструктор для создания нового IpPhoto экземпляра
+
+  factory IpColors.fromJson(Map<String, Object?> json) {
+    return IpColors(
       name: json['name'] as String,
       value: json['value'] as String,
     );
@@ -18,8 +22,8 @@ class IpPhoto {
 
   Color get color {
     final colorValue = value.replaceFirst('#', "0xFF");
-    final colorint = int.parse(colorValue);
-    return Color(colorint);
+    final colorInt = int.parse(colorValue);
+    return Color(colorInt);
   }
 
   String get colorHex {

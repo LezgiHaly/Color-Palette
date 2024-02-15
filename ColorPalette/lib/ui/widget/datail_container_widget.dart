@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:surf_flutter_courses_template/core/app_color.dart';
+import 'package:surf_flutter_courses_template/core/app_typography.dart';
 
-import '../../core/app_color.dart';
-import '../../core/app_typography.dart';
+// Карточка с данными о названии и RGB выбранного цвета в детельном экране
 
 class DatailContainerWidaget extends StatelessWidget {
   const DatailContainerWidaget(
@@ -13,13 +14,15 @@ class DatailContainerWidaget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return DecoratedBox(
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-              color: colorShadow, spreadRadius: 1, offset: const Offset(0, 17)),
+              color: AppColor.colorShadowOp02,
+              spreadRadius: 1,
+              offset: const Offset(0, 17)),
         ],
       ),
       child: Padding(
@@ -29,14 +32,14 @@ class DatailContainerWidaget extends StatelessWidget {
           children: [
             Text(
               title,
-              style: text16Regular.copyWith(color: textColorDarkBlue),
+              style: AppTypography.textText16Regular
+                  .copyWith(color: AppColor.darkBlue),
             ),
-            const SizedBox(
-              width: 14,
-            ),
+            const SizedBox(width: 14),
             Text(
               value,
-              style: text16Regular.copyWith(color: textColorDarkBlue),
+              style: AppTypography.textText16Regular
+                  .copyWith(color: AppColor.darkBlue),
             ),
           ],
         ),
@@ -50,7 +53,7 @@ class DatailContainerWidagetWithBUtton extends StatefulWidget {
       {super.key, required this.title, required this.value});
 
   final String title;
-  final dynamic value;
+  final String value;
 
   @override
   State<DatailContainerWidagetWithBUtton> createState() =>
@@ -65,13 +68,15 @@ class _DatailContainerWidagetWithBUttonState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return DecoratedBox(
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-              color: colorShadow, spreadRadius: 1, offset: const Offset(0, 17)),
+              color: AppColor.colorShadowOp02,
+              spreadRadius: 1,
+              offset: const Offset(0, 17)),
         ],
       ),
       child: Padding(
@@ -81,14 +86,11 @@ class _DatailContainerWidagetWithBUttonState
           children: [
             Text(
               widget.title,
-              style: text16Regular.copyWith(color: textColorDarkBlue),
+              style: AppTypography.textText16Regular
+                  .copyWith(color: AppColor.darkBlue),
             ),
-            const SizedBox(
-              width: 14,
-            ),
-            const SizedBox(
-              width: 180,
-            ),
+            const SizedBox(width: 14),
+            const SizedBox(width: 180),
             GestureDetector(
               onTap: () {
                 setState(() {
@@ -97,23 +99,24 @@ class _DatailContainerWidagetWithBUttonState
               },
               child: Text(
                 widget.value,
-                style: text16Regular.copyWith(color: textColorDarkBlue),
+                style: AppTypography.textText16Regular
+                    .copyWith(color: AppColor.darkBlue),
               ),
             ),
             _value
                 ? const Icon(
                     Icons.copy,
                     size: 12,
-                    color: iconColor,
+                    color: AppColor.iconColor,
                   )
-                : const Text('')
+                : const SizedBox.shrink()
           ],
         ),
       ),
     );
   }
 
-  void _doCalc() async {
+  Future<void> _doCalc() async {
     Clipboard.setData(ClipboardData(text: hexValue));
     _value = true;
 

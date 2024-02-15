@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:surf_flutter_courses_template/core/app_color.dart';
-
 import 'package:surf_flutter_courses_template/core/app_typography.dart';
-import 'package:surf_flutter_courses_template/domain/model/datail_screen.dart';
+import 'package:surf_flutter_courses_template/domain/model/detailed_screen.dart';
+import 'package:surf_flutter_courses_template/ui/widget/snack_bar_widget.dart';
 
-import '../widget/snack_bar_widget.dart';
+// Карточка контейнера с цветом
 
 class BoxModel extends StatefulWidget {
   const BoxModel(
@@ -22,7 +21,7 @@ class BoxModel extends StatefulWidget {
 }
 
 class _BoxModelState extends State<BoxModel> {
-  bool _value = false;
+  bool _copying = false;
 
   get hexValue => widget.hexValue;
 
@@ -33,7 +32,7 @@ class _BoxModelState extends State<BoxModel> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DatailScreen(
+            builder: (context) => DetailedScreen(
               boxModel: BoxModel(
                 color: widget.color,
                 title: widget.title,
@@ -51,44 +50,53 @@ class _BoxModelState extends State<BoxModel> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
+          SizedBox(
             height: 100,
             width: 100,
-            decoration: BoxDecoration(
-              color: widget.color,
-              borderRadius: BorderRadius.circular(16),
+            child: SizedBox(
+              height: 100,
+              width: 100,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: widget.color,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+              ),
             ),
           ),
           Text(
             widget.title,
-            style: text12Regular.copyWith(color: textColorDarkBlue),
+            style: AppTypography.textText12Regular
+                .copyWith(color: AppColor.darkBlue),
           ),
-          Row(
-            children: [
-              Text(
-                widget.hexValue,
-                style: text12Regular.copyWith(color: textColorDarkBlue),
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              _value
-                  ? const Icon(
-                      Icons.copy,
-                      size: 12,
-                      color: iconColor,
-                    )
-                  : Container()
-            ],
+          Expanded(
+            child: Row(
+              children: [
+                Text(
+                  widget.hexValue,
+                  style: AppTypography.textText12Regular
+                      .copyWith(color: AppColor.darkBlue),
+                ),
+                const SizedBox(width: 5),
+                _copying
+                    ? const Icon(
+                        Icons.copy,
+                        size: 12,
+                        color: AppColor.iconColor,
+                      )
+                    : const SizedBox.shrink()
+              ],
+            ),
           ),
         ],
       ),
     );
   }
 
+// метод копирования  и вызова модального окна с сообщением
   void _doCalc() async {
-    _value = true;
-    snackBarWidget(context, data: hexValue);
+    _copying = true;
+    snackBar(context, data: hexValue);
 
     await Future.delayed(
       const Duration(milliseconds: 4500),
@@ -96,9 +104,10 @@ class _BoxModelState extends State<BoxModel> {
     _setCal(false);
   }
 
+// метод изменения булевого значения на выбранный
   void _setCal(bool value) {
     setState(() {
-      _value = value;
+      _copying = value;
     });
   }
 }

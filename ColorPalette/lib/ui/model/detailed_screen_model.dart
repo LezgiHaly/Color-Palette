@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:surf_flutter_courses_template/core/app_color.dart';
-import 'package:surf_flutter_courses_template/core/app_string.dart';
+import 'package:surf_flutter_courses_template/core/app_strings.dart';
 import 'package:surf_flutter_courses_template/core/app_typography.dart';
 import 'package:surf_flutter_courses_template/ui/widget/datail_container_widget.dart';
 
-class DeteilBoxModel extends StatelessWidget {
-  const DeteilBoxModel(
+// Экран дельной компановки цвета
+
+class DetailedScreenModel extends StatelessWidget {
+  const DetailedScreenModel(
       {super.key,
       required this.color,
       required this.title,
@@ -26,10 +28,12 @@ class DeteilBoxModel extends StatelessWidget {
     return Column(
       children: [
         Stack(children: [
-          Container(
+          SizedBox(
             width: 500,
             height: 375,
-            decoration: BoxDecoration(color: color),
+            child: DecoratedBox(
+              decoration: BoxDecoration(color: color),
+            ),
           ),
           Positioned(
             top: 54,
@@ -46,9 +50,7 @@ class DeteilBoxModel extends StatelessWidget {
             ),
           ),
         ]),
-        const SizedBox(
-          height: 32,
-        ),
+        const SizedBox(height: 32),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
@@ -56,32 +58,29 @@ class DeteilBoxModel extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: text30Blood.copyWith(color: textColorDarkBlue),
+                style: AppTypography.textText30Blood
+                    .copyWith(color: AppColor.darkBlue),
               ),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 16),
               DatailContainerWidagetWithBUtton(
-                title: hex,
+                title: AppStrings.hex,
                 value: hexValue,
               ),
-              const SizedBox(
-                height: 36,
-              ),
+              const SizedBox(height: 36),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   DatailContainerWidaget(
-                    title: red,
+                    title: AppStrings.red,
                     value: '$rgbRed',
                   ),
                   DatailContainerWidaget(
-                    title: green,
+                    title: AppStrings.green,
                     value: '$rgbGreen',
                   ),
                   DatailContainerWidaget(
-                    title: blue,
+                    title: AppStrings.blue,
                     value: '$rgbBlue',
                   ),
                 ],
